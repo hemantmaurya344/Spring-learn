@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  https://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd">
+  
+  <!-- value as Element -->
+  
+  <!--   
+  		first bean  		
+	  <bean class="com.springCore.Student" name="student1">
+	  	<property name="studentId">
+	  		<value>121</value>
+	  	</property>
+	  	
+	  	<property name="studentName">
+	  		<value>Hemant Maurya</value>
+	  	</property>
+	  	
+	  	<property name="studentAddress">
+	  		<value>New Delhi</value>
+	  	</property>
+		    	
+	  </bean>
+	  
+	 Second bean	  
+  	<bean class="com.springCore.Student" name="student2">
+  		<property name="studentId">
+	  		<value>1211</value>
+	  	</property>
+  	
+  		<property name="studentName">
+	  		<value>Mehul</value>
+	  	</property>
+  	
+  		<property name="studentAddress">
+	  		<value>UP</value>
+	  	</property>
+	    	
+  	</bean>
+  -->
+     
+  <!--value as Attribute  -->
+  <!--   
+  		first object/bean
+  		
+	  <bean class="com.springCore.Student" name="student1">
+	  	<property name="studentId" value="121" />
+	  	
+	  	<property name="studentName" value="Hemant Maurya"/>
+	  	
+	  	<property name="studentAddress" value="New Delhi" />
+		    	
+	  </bean>
+	  
+	  Second bean
+	  
+  	<bean class="com.springCore.Student" name="student2">
+  		<property name="studentId" value="1211" />
+  	
+  		<property name="studentName" value="Mehul"/>
+  	
+  		<property name="studentAddress" value="UP" />
+	    	
+  	</bean>
+  -->	 
+  
+  <!-- P schema method -->
+	  
+   		<!--  first object/bean -->	
+   		<bean class="com.springCore.Student" name="student1" p:studentId="121" 
+   			p:studentName="Hemant Maurya" p:studentAddress="New Delhi"/> 		
+     		
+   		
+  		<bean class="com.springCore.Student" name="student2" p:studentId="211" 
+   			p:studentName="Kishan" p:studentAddress="Bombay"/> 			
+   	
+  	
+  	
+  
+</beans>

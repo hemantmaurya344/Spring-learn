@@ -1,0 +1,475 @@
+		Spring
+
+-- Spring is a Java Framework.
+-- Spring is a Dependency Injection framwework to make java application loosely coupled.
+-- Loosely Coupled: Easily changes is future.
+-- Spring Framework makes the easy development of JavaEE Aplication.
+-- Dependency Injection:
+	- It is a design pattern & help in creating Java applications.
+	- In Java we use so many classes for creating application.
+	- When a one class is dependent on another class is called as Dependency
+	- Spring has capabalities to inject object into classes.
+	
+-- IOC (Inversion of Control): 
+	- When we give control of object creation to the spring, Which spring inject all the dependencies at the runtime this whole 
+	process is called as IOC.
+	- We need to specify where we need the obj which can be specify this Metadata by using `XML` or `Annotations`.
+	- whole process of object creation is handled by spring we don't need external code for it.
+
+-- when we create J2ee Applications we had to deal many layers
+						    Examples			capabities
+		UI Layer		(ui layer) ProductController 	    (request accept) not Logic
+		   |					|
+	Businees/Service layer			ProductService		    (Business Logic)
+		   |					|
+	   Data Access Layer -> DB		Product Dao			(contact to db)
+
+-- We create object using new keyword that's mean application is tightly coupled it is not recommended in Enterprise level, 
+   it can be used in small applications.
+
+-- Spring provide modules, services, api along with the Dependency Injection.
+	- Strut/JSF, Spring MVC (UI Layer)
+	- Security, Transaction Management (Business Layer)
+	- Spring JDBC, Spring ORM (Data Access Layer)
+
+
+-- Spring Modules
+	- Spring Core : Core, beans, Context, spEL(Spring Expression Language)  
+		- these four things combine and provide fundamental Basics like IOC, DI, etc
+		- Core and beans provide fundamental part of framework IOC, DI
+		- Context inherit features from beans and add Internal Initialization, Event Propagation, Resource Loading, transparent 
+		  creation of context and servlet context and provide feature of J2EE. 
+		- spEL it query and manipulate object graph at runtime which means geting, seting values of object.
+
+	- AOP(Aspect oriented programming), Aspect, Instrumentation, Messaging
+		- AOP allows us to define method intercepters and point cut which help in keeping our code  decoupled. 
+		- Intrumentation provide class intrumentation support and class loader implementation.
+		- Messaging is used to serve messaging based application, we have lot of annotation which helps in mapping the methods 
+		  to the messages.
+	- Data Access/ Integration : JDBC, ORM, JMS, OXM
+		- Spring JDBC provides JDBC abstraction layer that removes the need to tedious JDBC code and passing databse render 
+		  specific error.
+		- Spring ORM provides integration layer by which we can integrate other ORM tools into our Application.
+		- Spring OXM provide abstraction layer that supports object XML mapping.
+		- Spring JMS (java messaging service) provides produce and consume the messages.
+	- Web : Web, Servlet, Portlet, Websocket
+		- It is very important module, 
+		- creating rest api's, file uploading
+	- Test : it provides support for testing.
+		-it provides support for unit testing and integration testing.
+
+
+-- Spring IOC Container
+	- it is predefined program/ component which comes with spring
+	- it is responsible for object creation, holding them in a memory and injecting one object into another object as required.
+	  which means it is responsible for maintain lifecycle of object from object creation till it destoryed
+	- Spring containers need two thing and they perform everything on them
+		- 1. Beans 	2. Configuration info : we tells which bean is dependent on what
+	
+	- ApplicationContext:
+		- In Spring we get ApplicationContext, it is a interface which represents IOC container we generally talk about 
+		  beanFactory for this but AppicationContext is extends beanFactory. 
+		- it represent our context i.e IOC Container
+		- we can't create its object because it is a interface so we need to take help of class to create it's object.
+		- we use some classes for this : 
+			1. `ClasspathXMLApplicationContext`
+				- if we use XML for config
+				- it searches/scans XML Config from Java Class Path
+			2. `AnnotationConfigApplicationContext`
+				- if we use annotation for config
+				- it scans/searches beans who are using annotations 
+			3. `FileSystemXMLApplicationContext`
+				- it searches/scans config file from file system
+				
+		- We generally use XML so we use ClasspathXMLApplicationContext.
+
+-- Spring Project setup
+	1. Create maven project : archtype-qwickstart
+	2. Adding dependecies : spring core, spring context(same version as spring core)
+	3. creating beans Java pojo
+	4. creating configuration file : config.xml : first add spring namespace
+	5. setter Injection/ constructor injection
+	6. main class
+
+	- Configuration file:
+		- Spring has a XML file known as Configuration file where we define everything 
+		- Here we declare beans and its dependency
+		- The first tag is always is beans
+			> ex: <beans> 
+					<bean>
+					<bean>
+					 ---
+					 ---
+				</beans>
+	
+	- Beans: Which class we provide to IOC container are known as Beans 
+
+	- IOC Container Inject Dependency in 2 ways 
+		1. Using Setter Injection / Property Injection
+			- When IOC uses Setter Injection then it uses only set methods to set the values.
+			> ex: class Student{				class Address{
+				id,name,address;				street,city,state,country
+				setId(id){ }					setStreet(street) 
+				setName(name){ }				setCity(city)	
+				setAddress(address){ }				setState(state)
+				}						setCountry(country)
+									}
+		
+		2. Usin Constructor Injection	
+			- IOC uses constructor method for set the values
+			> ex: class Student{				class Address{
+				String id,name,address;			   String street,city,state,country;
+				Student(id,name,address){		   Address(street,city,state,country){
+				    -----					- - - - 
+				}					   }	
+			      }						}	
+									
+		- Which Method need to use it going to define in the configuration file manually.
+
+	1. Property Injection
+		-config.xml :
+	    	  - dtd namespace
+		 	<beans xmlns="http://www.springframework.org/schema/beans"
+	 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  			xmlns:context="http://www.springframework.org/schema/context"
+	  			xmlns:p="http://www.springframework.org/schema/p"
+	  			xsi:schemaLocation="http://www.springframework.org/schema/beans
+	  			https://www.springframework.org/schema/beans/spring-beans.xsd
+	  			http://www.springframework.org/schema/context
+	  			http://www.springframework.org/schema/context/spring-context.xsd">
+
+		- config.xml demo:
+			<beans xmlns="http://www.springframework.org/schema/beans"
+  				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 				xmlns:context="http://www.springframework.org/schema/context"
+  				xmlns:p="http://www.springframework.org/schema/p"
+  				xsi:schemaLocation="http://www.springframework.org/schema/beans
+  				https://www.springframework.org/schema/beans/spring-beans.xsd
+  				http://www.springframework.org/schema/context
+  				http://www.springframework.org/schema/context/spring-context.xsd">
+  
+  				<bean class="com.springCore.Student" name="student1">
+  					<property name="studentId">
+  						<value>121</value>
+  					</property>
+  		
+  					<property name="studentName">
+  						<value>Hemant Maurya</value>
+  					</property>
+  	
+					<property name="studentAddress">
+	  					<value>New Delhi</value>
+					</property>
+  				</bean>
+			</beans>
+
+		- property name must need to similar to the field's name in the class 
+
+		- For a object we need 1 bean, for multiple object we need multiple bean respectively and fetch the bean to the main 
+		  class for using it.
+		
+		- when IOC inject dependency it checks its data type 
+			Q:  How many types of datatypes of dependency can be handle by the IOC Container?
+			Ans: It can handle 3 types of datatypes
+				1. Primitive DataTypes 
+					- btye,short,char,int,float,double,long,boolean
+				2. Collection Type
+					- List, Set, Map, Properties
+				3. Reference Types
+					- user defined datatypes / class objects
+
+		1. Primitives type values 
+	    		- It can be done via 3 methods
+				1. Value as an element 	2. Value as Attribute 	3. P Schema
+			
+			1. Value as Element: 
+				- ex: <property name="classField_name">
+  					   <value>value</value>
+  		      			</property>
+
+			2. Value as an attribute: 
+				- Here we use Value as an attribute instead of value tag in config.xml
+				- ex: <property name="studentId" value="12" /> 
+
+			3. P Schema:
+				- we can set the values using p schema also and it is best method to set 				  values.
+				- For using p schema we need to use P schema namespace in the dtd.
+				- here it doesn't need the extra bean tag like property 
+				- see config.xml
+				- ex:<bean class="<class_name>" name="<bean_name>" p:classField_name:"value" />
+	
+		2. Collection types values
+			- List
+				- duplicates are allowed
+				- ex: <bean>
+  					<property name="">
+	    					<list>
+							<value>324</value>
+							<value>2342</value>
+							<value324</value>
+							<null/>
+						</list>
+					</property>
+  		     			</bean>
+
+			- Set
+				- dublicates are not allowed
+				- ex: <bean>
+  					<property name="">
+	    					<set>
+							<value>324</value>
+							<value>2342</value>
+							<value>234</value>
+						</set>
+				  	</property>
+  		    	 		</bean>
+
+			- Map
+				- ex: <bean>
+  					<property name="">
+	    					<map>
+							<entry key="" value="" />
+							<entry key="" value="" /> 
+						</map>
+					  </property>
+  		    	 		</bean>
+			- Properties
+				- ex: <bean>
+  					<property name="">
+	    					<props>
+							<prop key="">value</prop>
+							<prop key="">value</prop>
+						</props>
+					  </property>
+  		    	 		</bean>
+		- For example refer com.springCore.collection package
+		- We can use Collection as standalone where we create the collection one time outside the bean and use it as many 
+		  times we want.
+		- we can also declare which type of collection we want like for list: Arraylist, Linkedlist.
+		- We can do this via util Schema.
+		- ex: <bean xmlns:util="http://www.springframework.org/schema/util"
+			http://www.springframework.org/schema/util
+ 		 	http://www.springframework.org/schema/util/spring-util.xsd">
+			
+			<util:list list-class="java.util.LinkedList" id="myfriend">
+				<value>Mona</value>
+				<value>shona</value>
+				<value>rona</value>
+				<value>Mona</value>
+			</util:list>
+			
+			<bean class="com.springCore.collection.standalone.Person" name="p2" p:friends-						ref="myfriend"/>
+
+  		3. Reference Type values
+			- It is very Imp Injection we use it alot.
+			- there need to be 2 objects for that
+			- ex object A and B 
+				A is totally depend on B then B is a dependency and A is a reference type
+			- ex: <bean>
+  				<property name="">
+	    				<ref bean="" />
+				</property>
+  		    	      </bean>
+	
+	2. Constructor Injection		
+		- All the process is similar to setter injection but here we use parameterized constructor for setting the values not 
+		  the setters method.
+		- the config file is also similar but instead of property tag we use `contructor-args`  tag
+		- ex: 	<bean class="" name="">			<bean class="" name="">	
+				<constructor-args>			<constructor-args value="" />
+					<value> </value>	</bean>		
+				</constructor-args>	
+			</bean>
+		- see com.springCore.constructor package 
+		- In constructor injection one `constructor-args` tag is only valid for one property field. 
+		- this injection work in 3 method default value, property, c schema same as P schema only need c schema namespaces need.		
+		- In config file we need to specify the type of property other than String, by default it is String.
+		- For using dependencies of another object first we need to create the object using bean which is a dependency then 
+		  use it to reference it.
+		- ex: <bean class="" name="">			<bean class="" name="">	
+			<constructor-args>				<constructor-args ref="" />
+				<ref bean="" />    		</bean>
+			</constructor-args>
+			</bean>
+
+
+-- Life Cycle Method of Spring Bean
+	- Spring provide two important method to every bean
+		1. public void init() 	2. public void destroy()
+
+	- We can change their names but their signature must need to be same.\
+	1. public void init()	
+		- Used to initialization code : loading config file, connecting to db, microservices, etc
+	
+	2. public void destroy()
+		- Used to write clean up code
+	
+	- In lifecycle of bean the init() method call after the property setting.
+	- Configuration : 
+			- XML: use init and destroy method in bean and use them in config file while creating	 			     	the bean.
+			- Spring Interface : Implement InitializingBean & DisposableBean interfaces for init 					     and destory respectively and override the methods.
+			- Annotation: @PreDestroy and @PostConstruct for destroy and init respectively, this is depricated since java 9, 
+			  we need to add dependency for it and declare that <context:annotation-config /> in config file before using 
+			  bean for this.
+				Dependency: 
+					<dependency>
+						<groupId>javax.annotation</groupId>
+						<artifactId>javax.annotation-api</artifactId>
+						<version>1.3.2</version>
+					</dependency>
+ 
+-- Autowiring
+	- Feature of spring framework in which spring container inject the dependencies automatically.
+	- Autowiring can't be used to inject primitive and string values. It works with reference/objects only.
+	- Autowiring can be done via XML and Annotations
+					XML				Annotation
+		autowiring modes:  	no				    @Autowired
+					byName
+					byType
+					constructor	  	
+	- Autowiring Advantages			- Autowiring Disadvantages
+		- Automatic				- No control of programmer
+		- less code				- it can't be used for primitive and string values
+
+ 	- when we do autowiring by xml, in byType if there are more than one bean of same type then it throw error.
+
+	- Annotation method is most used in Spring Java.
+	- @Autowired can be used with setter injection, property/variable, constructor. 
+
+	- @Qualifier
+		- when we have more than one bean of same type then we use @Qualifier and put name of bean inside paranthesis in 
+		  string format.
+		- @Qualifier("add1")
+
+-- Sterotype Annotactions
+	- We used XML method for bean creation and adding dependencies, we can do this via Annotations also the whole process is 
+	  known as Sterotype Annotations.
+	- @Component : creation of bean 
+		- ex: @Component 
+			class Student{     }
+
+		- we need to declare the package for which it will create bean in the config file
+			<context:component-scan base-package="" />
+		- It will create obj with the name via classname but in camel case.
+		- We can add values to the property using @Value annotation
+		- We can add collection same adding util schema then use @Value and use spring expression language inside parenthesis 
+		  in a string.
+
+-- Bean Scope
+	- You can control not only the various dependencies and configuration values that are to be plugged into an object that is 
+	  created from a particular bean definition but also control the scope of the objects created from a particular bean definition.
+	  This approach is powerful and flexible, because you can choose the scope of the objects you create through configuration 
+	  instead of having to bake in the scope of an object at the Java class level. Beans can be defined to be deployed in one of a
+	  number of scopes. The Spring Framework supports six scopes, four of which are available only if you use a web-aware 
+	  ApplicationContext
+		- Singleton: (Default) Scopes a single bean definition to a single object instance for each
+			     Spring IoC container.
+		- Prototype: Scopes a single bean definition to new object instance for each Spring IoC container.
+		- Request: Scopes a single bean definition to the lifecycle of a single HTTP request. That is, each HTTP request has 
+			   its own instance of a bean created off the back of a single bean definition. Only valid in the context of 
+			   a web-aware Spring ApplicationContext.
+		- Session: Scopes a single bean definition to the lifecycle of an HTTP Session. Only valid in the context of a 
+		  	   web-aware Spring ApplicationContext.
+		- Application: Scopes a single bean definition to the lifecycle of a ServletContext. Only valid in the context of a 
+			       web-aware Spring ApplicationContext.
+		- Websocket: Scopes a single bean definition to the lifecycle of a WebSocket. Only valid in the context of a web-aware 
+			     Spring ApplicationContext.	
+
+
+	- Configuration of bean scope can be done in config file 
+		- for XML: <bean class="" name="" scope="" />
+		- for sterotype annotation: 
+				@Component		
+				@Scope("")
+				class Student{  }
+					
+
+-- we can create bean with 3 methods
+	1. XMl 	2. @Component 	3. @Configuration @Bean 
+
+	
+-- Spring Expression Language (SpEL)
+	- is a powerful expression language that supports querying and manipulating an object graph at runtime. 
+	- it supports parsing and executing expression with the help of @Value annotations.
+	- syntax: @Value(" # {expression} ")
+	- expression language supports classes, variables, methods, constructors, objects, symbols, char, numeric, operators, keywords, 
+	  and special symbols which return a value.
+	- ex: @Value("#{11+12}") , @Value("#{11<12?88:55}") , static methods, object methods, variables 
+	
+	- we can pass the value through spEL parsar also for this create obj of SpelExpressionParser and create obj of Expression and 
+	  pass the expression to it.
+	- ex: ExpressionParser parser = new SpelExpressionParser();
+	      Expression exp = parser.parseExpression("'Hello World'"); 
+	      System.out.println(exp.getValue());
+
+	- this method is not used, we mostly use @Value 
+
+	- For static method, use T(className).mehtodName(param) as a expression 
+	- For variables, use T(className).variableName as a expression
+	- we can create object also, use  new className()  
+	
+
+
+-- Data Access/ Integration 
+	- Spring JDBC
+		- It is a powerful mechanism to connect to the database and execute SQL queries.
+		- Spring JDBC Module uses JdbcTemplate class to perform operation with database.
+		- Spring JDBC is based over the Java JDBC along with some other features.
+		- Problems with Java JDBC 
+			- lot of code
+			- Exception handling problem : checked Exception SQLException
+			- Repeating all the code 
+			- many more.
+		- JdbcTemplate has a property named dataSource which is a interface and contain all the info to to connect the database,
+		  DriverManagerDataSource is the implentation of dataSource interface.
+		- JdbcTemplate methods 
+			- update() -> insert, update, delet
+			- execute() -> select
+
+		- To be a professional we need to use a Dao interface for our entity and implement that interface and get JdbcTemplate 
+		  object via beans and use it to perform operations.
+		- RowMapper is a interface which map the row with a object, it is done via implementing it and configure what to map 
+		  with the object.
+		-ex: public class RowMapperImpl implements org.springframework.jdbc.core.RowMapper<Student>{
+				public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Student std = new Student()	
+					std.setId(rs.getInt(1));
+					std.setName(rs.getString(2));
+					std.setCity(rs.getString(3));
+
+					return std;
+				}
+		     }
+
+
+-- Spring ORM
+	- Adv of Spring ORM
+		- Less coding is required
+		- Easy to Test
+		- Better Exception Handling
+		- Integrated transaction management
+		- and many more.
+
+	- HibernateTemplate class provides all the functionalities in the spring ORM.
+	- Working						
+		     DAO -> HibernatTemplate -> SessionFactory <- LocalSessionFactoryBean (child Class)
+		    (class) 	(class)		  	  (Interface)		
+									   		  | (require)	
+									* DataSource (db info ...)
+									* Hibernate Properties (dialect, ...)
+									* Annotated Class (Entity, ...)
+								
+	
+
+
+-- Spring MVC
+	-
+	- Spring MVC follows MVC Design Pattern.
+	- MVC stands for Model View Controller, Model- Data
+											View - presents data to user
+											Controller- interface b/w model and view
+	
+			
+	
+
+	

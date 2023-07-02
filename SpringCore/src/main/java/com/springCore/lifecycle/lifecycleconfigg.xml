@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  https://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd">
+  
+ 	 	<!-- 
+ 	 	<bean class="com.springCore.lifecycle.Bean" name="b1" init-method="init" destroy-method="destroy" p:price="8.5f"/>
+  
+  		<bean class="com.springCore.lifecycle.Bean2" name="b2" p:name="bean"/>
+   		
+   		-->
+  		<context:annotation-config />
+  		<bean class="com.springCore.lifecycle.Bean3" name="b3" p:name="Bean 3 anotation method"/>
+  		
+  </beans>

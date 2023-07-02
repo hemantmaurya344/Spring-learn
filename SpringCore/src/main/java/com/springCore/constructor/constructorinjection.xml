@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:c="http://www.springframework.org/schema/c"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  https://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<bean class="com.springCore.constructor.Certi" name="cert">
+		<constructor-arg value="Spring Framework" />
+	</bean>
+	
+	<bean class="com.springCore.constructor.Person" name="person1" c:name="Hemant" c:cert-ref="cert"  >	
+		  <constructor-arg index="1" value="21"/>
+	</bean>
+			
+		<!-- 1st method 
+			<constructor-arg>
+				<value></value>
+			</constructor-arg>
+		-->
+		<!-- 2nd method 
+		<constructor-arg value="Hemant"/>
+		<constructor-arg value="14" type="int"/>
+		<constructor-arg ref="cert"/> 
+		-->  
+</beans>
